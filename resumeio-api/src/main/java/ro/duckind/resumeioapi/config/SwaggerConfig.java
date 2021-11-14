@@ -12,12 +12,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
-    @Value("${swagger.host.url}")
-    private String hostUrl;
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .host(hostUrl)
                 .groupName("Spring Actuator")
                 .select()
                 .apis(RequestHandlerSelectors.any())

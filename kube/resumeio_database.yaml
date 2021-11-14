@@ -13,10 +13,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: resumeio_database
+  name: resumeio-database
 spec:
   selector:
-    app: resumeio_database
+    app: resumeio-database
   ports:
     - port: 5432
       targetPort: 5432
@@ -26,18 +26,18 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: resumeio_database
+  name: resumeio-database
 spec:
   selector:
     matchLabels:
-      app: resumeio_database
+      app: resumeio-database
   template:
     metadata:
       labels:
-        app: resumeio_database
+        app: resumeio-database
     spec:
       containers:
-        - name: resumeio_database
+        - name: resumeio-database
           image: postgres
           ports:
             - containerPort: 5432

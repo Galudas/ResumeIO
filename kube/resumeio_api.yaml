@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: resumeio_app
+  name: resumeio-app
 spec:
   replicas: 1
   selector:
@@ -13,20 +13,22 @@ spec:
         app: resumeio-api
     spec:
       containers:
-        - name: carman
-          image: galudas/kubernetes:latest
+        - name: resumeio-api
+          image: galudas/resumeio:resumeio-api.0.1
           ports:
             - containerPort: 8080
           env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://resumeio-database:5432/resumeio
             - name: POSTGRES_URL
-              value: jdbc:postgres://postgres:5432/kube
+              value: jdbc:postgres://resumeio-database:5432/resumeio
           imagePullPolicy: Always
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: resumeio_app
+  name: resumeio-app
 spec:
   selector:
     app: resumeio-api
