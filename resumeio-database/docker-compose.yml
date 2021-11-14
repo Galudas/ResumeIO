@@ -8,6 +8,8 @@ services:
       - POSTGRES_DB=resumeio
       - POSTGRES_USER=resumeio
       - POSTGRES_PASSWORD=resumeio
+    volumes:
+      - ${HOME}/.resumeio:/data
 #  redis:
 #    image: redis:alpine
 #    ports:

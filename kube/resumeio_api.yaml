@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: resumeio_app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: resumeio-api
+  template:
+    metadata:
+      labels:
+        app: resumeio-api
+    spec:
+      containers:
+        - name: carman
+          image: galudas/kubernetes:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: POSTGRES_URL
+              value: jdbc:postgres://postgres:5432/kube
+          imagePullPolicy: Always
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: resumeio_app
+spec:
+  selector:
+    app: resumeio-api
+  ports:
+    - port: 80
+      targetPort: 8080
+  type: LoadBalancer

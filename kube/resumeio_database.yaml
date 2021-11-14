@@ -1,0 +1,62 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgres-pvc
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 256Mi
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: resumeio_database
+spec:
+  selector:
+    app: resumeio_database
+  ports:
+    - port: 5432
+      targetPort: 5432
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: resumeio_database
+spec:
+  selector:
+    matchLabels:
+      app: resumeio_database
+  template:
+    metadata:
+      labels:
+        app: resumeio_database
+    spec:
+      containers:
+        - name: resumeio_database
+          image: postgres
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - name: storage
+              mountPath: /data/db
+            - name: scripts
+              mountPath: ${HOME}/.resumeio/scripts
+          env:
+            - name: POSTGRES_DB
+              value: resumeio
+            - name: POSTGRES_USER
+              value: resumeio
+            - name: POSTGRES_PASSWORD
+              value: resumeio
+      volumes:
+        - name: storage
+          persistentVolumeClaim:
+            claimName: postgres-pvc
+        - name: scripts
+          hostPath:
+            path: /scripts
