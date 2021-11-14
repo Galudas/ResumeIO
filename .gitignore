@@ -1,0 +1,25 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/resumeio-frontend/node_modules
+/resumeio-frontend/.pnp
+/resumeio-frontend/.pnp.js
+/resumeio
+# testing
+/resumeio-frontend/coverage
+
+# production
+/resumeio-frontend/build
+
+# misc
+/resumeio-frontend/.DS_Store
+/resumeio-frontend/.env.local
+/resumeio-frontend/.env.development.local
+/resumeio-frontend/.env.test.local
+/resumeio-frontend/.env.production.local
+
+/resumeio-frontend/npm-debug.log*
+/resumeio-frontend/yarn-debug.log*
+/resumeio-frontend/yarn-error.log*
+
+.idea
