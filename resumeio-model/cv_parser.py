@@ -4,8 +4,8 @@ import docx
 import regex
 import applicant
 
-cv_file_path = "../resumeio-cv-generator/cv_data/"
-position_file_path = "../resumeio-cv-generator/positions.txt"
+cv_file_path = "../resumeio-generator/cv_data/"
+position_file_path = "../resumeio-generator/positions.txt"
 
 
 def random_position(file_name):
