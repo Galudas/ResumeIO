@@ -3,6 +3,7 @@ import random
 import docx
 import regex
 import applicant
+import util
 
 cv_file_path = "../resumeio-generator/cv_data/"
 position_file_path = "../resumeio-generator/positions.txt"
@@ -22,8 +23,7 @@ def read_docx():
     position_name = random_position(position_file_path)
     file_regex = "cv_" + position_name.replace("\n", "") + "_.*"
     cv_list = [file for file in os.listdir(cv_file_path) if regex.match(file_regex, file)]
-    for cv in cv_list:
-        print(cv_data(cv_file_path + cv))
+    return [cv_data(cv_file_path + cv) for cv in cv_list]
 
 
 def cv_data(filename):
@@ -57,4 +57,10 @@ def cv_data(filename):
     return applicant.Applicant(experience, skills, firs_name + " " + last_name, email, position)
 
 
-read_docx()
+def extract_cv_data():
+    applicant_descriptions = read_docx()
+    for applicant_description in applicant_descriptions:
+        applicant_description.experience = util.get_most_important_words(applicant_description.experience)
+        applicant_description.skills = applicant_description.skills.split(",")
+        print(applicant_description)
+    return applicant_descriptions

@@ -2,6 +2,7 @@ import os
 import random
 import docx
 import job
+import util
 
 job_description_file_path = '../resumeio-generator/job_data'
 
@@ -23,7 +24,9 @@ def parse_job():
         if doc.paragraphs[i].text.find("Department:") != -1:
             department = doc.paragraphs[i].text.split("Department:")[1]
             if department == '':
-                department = doc.paragraphs[0]
+                i -= 1
+                department = doc.paragraphs[i]
+                i += 1
         if doc.paragraphs[i].text.find("Description:") != -1:
             i += 1
             while doc.paragraphs[i].text != "Requirements:":
@@ -38,4 +41,9 @@ def parse_job():
     return job.Job(description, department, requirements)
 
 
-print(parse_job())
+def extract_job_data():
+    job_description = parse_job()
+    job_description.description = util.get_most_important_words(job_description.description)
+    job_description.requirements = util.get_most_important_words(job_description.requirements)
+    print(job_description)
+    return job_description

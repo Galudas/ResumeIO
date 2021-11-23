@@ -7,8 +7,8 @@ class Applicant:
         self.position = position
 
     def __str__(self):
-        return 'applicant(experience: ' + self.experience \
-               + ' \nskills:' + self.skills \
+        return 'applicant(experience: ' + str(self.experience) \
+               + ' \nskills:' + str(self.skills) \
                + ' \nname: ' + self.name \
                + ' \nemail: ' + self.email \
                + ' \nposition: ' + self.position + \
