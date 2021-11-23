@@ -36,20 +36,19 @@ def cv_data(filename):
     skills = ""
     i = 0
     while i < len(doc.paragraphs):
-        if str(doc.paragraphs[i].text).find("Last name:") != -1:
-            print(str(doc.paragraphs[i].text))
-            last_name = str(doc.paragraphs[i].text).split("Last name: ")[1]
-        if str(doc.paragraphs[i].text).find("First name:") != -1:
-            firs_name = str(doc.paragraphs[i].text).split("First name: ")[1]
-        if str(doc.paragraphs[i].text).find("Email:") != -1:
-            email = str(doc.paragraphs[i].text).split("Email: ")[1]
-        if str(doc.paragraphs[i].text).find("Experience:") != -1:
-            position = str(doc.paragraphs[i].text).split("Experience: ")[1]
+        if doc.paragraphs[i].text.find("Last name:") != -1:
+            last_name = doc.paragraphs[i].text.split("Last name: ")[1]
+        if doc.paragraphs[i].text.find("First name:") != -1:
+            firs_name = doc.paragraphs[i].text.split("First name: ")[1]
+        if doc.paragraphs[i].text.find("Email:") != -1:
+            email = doc.paragraphs[i].text.split("Email: ")[1]
+        if doc.paragraphs[i].text.find("Experience:") != -1:
+            position = doc.paragraphs[i].text.split("Experience: ")[1]
             i += 1
-            experience = str(doc.paragraphs[i].text)
-        if str(doc.paragraphs[i].text).find("Skills:") != -1:
+            experience = doc.paragraphs[i].text
+        if doc.paragraphs[i].text.find("Skills:") != -1:
             i += 1
-            skills = str(doc.paragraphs[i].text)
+            skills = doc.paragraphs[i].text
         i += 1
     return applicant.Applicant(experience, skills, firs_name + " " + last_name, email, position)
 
