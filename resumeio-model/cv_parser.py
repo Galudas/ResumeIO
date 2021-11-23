@@ -45,10 +45,14 @@ def cv_data(filename):
         if doc.paragraphs[i].text.find("Experience:") != -1:
             position = doc.paragraphs[i].text.split("Experience: ")[1]
             i += 1
-            experience = doc.paragraphs[i].text
+            while doc.paragraphs[i].text != 'Skills:':
+                experience += doc.paragraphs[i].text
+                i += 1
         if doc.paragraphs[i].text.find("Skills:") != -1:
             i += 1
-            skills = doc.paragraphs[i].text
+            while i < len(doc.paragraphs):
+                skills += doc.paragraphs[i].text
+                i += 1
         i += 1
     return applicant.Applicant(experience, skills, firs_name + " " + last_name, email, position)
 

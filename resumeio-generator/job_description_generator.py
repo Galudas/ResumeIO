@@ -20,11 +20,6 @@ def generate_job_description():
                 document.add_paragraph(row[7])
                 document.save(f'job_data/job_{str(line_count)}.docx')
             line_count += 1
-        f = open("jobs.txt", "w+")
-        print(job_list)
-        for job in job_list:
-            f.write(str(job) + "\n")
-        f.close()
 
 
 generate_job_description()
