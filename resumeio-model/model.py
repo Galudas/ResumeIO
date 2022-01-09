@@ -29,6 +29,7 @@ def encode_words(word_list):
 
 
 def match():
+    print("START")
     candidates = cv_parser.extract_cv_data()
     job_description = job_parser.extract_job_data()
     job_encoded = list(np.append(job_description.description, job_description.requirements))
