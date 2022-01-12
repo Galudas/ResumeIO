@@ -22,4 +22,6 @@
 /resumeio-frontend/yarn-debug.log*
 /resumeio-frontend/yarn-error.log*
 
+/venv
+
 .idea
