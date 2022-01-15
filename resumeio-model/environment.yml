@@ -1,0 +1,10 @@
+name: resumeio
+
+dependencies:
+  - python=3.8
+  - numpy
+  - pip
+  - pip:
+      - flask
+      - docx
+      - pymongo

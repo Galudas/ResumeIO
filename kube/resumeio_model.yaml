@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: resumeio-model
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: resumeio-model
+  template:
+    metadata:
+      labels:
+        app: resumeio-model
+    spec:
+      containers:
+        - name: resumeio-model
+          image: galudas/resumeio:resumeio-model.0.0.9
+          ports:
+            - containerPort: 5000
+          env:
+            - name: FLASK_ENV
+              value: production
+            - name: MONGO_DATASOURCE_URL
+              value: mongodb://resumeio-model-db:27017/admin
+          imagePullPolicy: Always
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+    name: resumeio-model
+spec:
+  type: NodePort
+  ports:
+    - port: 5000
+      targetPort: 5000
+      protocol: TCP
+      nodePort: 30112
+  selector:
+    app: resumeio-model

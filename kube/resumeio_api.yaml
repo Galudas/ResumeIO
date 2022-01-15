@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: resumeio-api
-          image: galudas/resumeio:resumeio-api.0.1
+          image: galudas/resumeio:resumeio-api.1.0.2
           ports:
             - containerPort: 8080
           env:
@@ -25,15 +25,16 @@ spec:
           imagePullPolicy: Always
 ---
 
-apiVersion: v1
 kind: Service
+apiVersion: v1
 metadata:
-  name: resumeio-app
+    name: resumeio-app
 spec:
-  selector:
-    app: resumeio-api
+  type: NodePort
   ports:
     - port: 80
       targetPort: 8080
+      protocol: TCP
       nodePort: 30111
-  type: LoadBalancer
+  selector:
+    app: resumeio-api

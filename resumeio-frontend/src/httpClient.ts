@@ -1,5 +1,4 @@
 import {defaultConfig} from "./config/default.config";
-import axios from "axios";
 import {Config} from "./config/config";
 
 
