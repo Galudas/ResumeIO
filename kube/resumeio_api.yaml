@@ -1,39 +1,47 @@
-apiVersion: apps/v1
 kind: Deployment
+apiVersion: apps/v1
 metadata:
   name: resumeio-app
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: resumeio-api
+      app: resumeio-app
   template:
     metadata:
       labels:
-        app: resumeio-api
+        app: resumeio-app
     spec:
       containers:
-        - name: resumeio-api
-          image: galudas/resumeio:resumeio-api.0.1
-          ports:
-            - containerPort: 8080
-          env:
-            - name: SPRING_DATASOURCE_URL
-              value: jdbc:postgresql://resumeio-database:5432/resumeio
-            - name: POSTGRES_URL
-              value: jdbc:postgres://resumeio-database:5432/resumeio
-          imagePullPolicy: Always
+      - name: resumeio-app
+        image: galudas/resumeio:resumeio-api.1.0.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        env:
+          - name: SPRING_DATASOURCE_URL
+            value: jdbc:postgresql://resumeio-database:5432/resumeio
+          - name: POSTGRES_URL
+            value: jdbc:postgres://resumeio-database:5432/resumeio
+        resources:
+          requests:
+            memory: "100Mi"
+            cpu: "300m"
+          limits:
+            memory: "200Mi"
+            cpu: "600m"
+      restartPolicy: Always
 ---
-
-apiVersion: v1
 kind: Service
+apiVersion: v1
 metadata:
   name: resumeio-app
 spec:
-  selector:
-    app: resumeio-api
+  type: NodePort
   ports:
-    - port: 80
+    - port: 8080
       targetPort: 8080
+      protocol: TCP
       nodePort: 30111
-  type: LoadBalancer
+  selector:
+    app: resumeio-app
