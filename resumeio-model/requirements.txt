@@ -4,3 +4,8 @@ gensim==4.1.2
 nltk==3.6.7
 numpy==1.22.0
 regex==2021.11.10
+
+numpy
+docx
+flask
+pymongo

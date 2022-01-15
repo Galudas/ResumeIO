@@ -13,8 +13,8 @@ spec:
         app: resumeio-react
     spec:
       containers:
-      - name: resumeio-react
-        image: galudas/resumeio:resumeio-frontend.1.0.0
+      - name: minikube-react-app
+        image: galudas/resumeio:resumeio-frontend.1.0.1
         imagePullPolicy: Always
         ports:
         - containerPort: 80

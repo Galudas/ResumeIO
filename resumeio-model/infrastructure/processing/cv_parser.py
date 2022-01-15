@@ -2,6 +2,7 @@ import os
 import random
 import docx
 import regex
+from infrastructure.aggregate import applicant
 import applicant
 import util
 

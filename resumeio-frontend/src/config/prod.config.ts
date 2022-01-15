@@ -1,6 +1,6 @@
 import { Config } from "./config"
 
 export const prodConfig: Config = {
-    baseUrl: "http://resumeio-app.resumio.svc.cluster.local:30111/",
+    baseUrl: "http://192.168.49.2:30111/",
     headers: {},
 }

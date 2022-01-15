@@ -1,6 +1,7 @@
 import os
 import random
 import docx
+from infrastructure.aggregate import job
 import job
 import util
 
