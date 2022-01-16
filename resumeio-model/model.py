@@ -29,6 +29,8 @@ def encode_words(word_list):
 
 def match(job_description, candidate_description):
     print("Start matching")
+    print(job_description)
+    print(candidate_description)
     parsed_job = util.get_most_important_words(job_description)
     parsed_candidate = util.get_most_important_words(candidate_description)
     encoded_job = encode_words(parsed_job)
