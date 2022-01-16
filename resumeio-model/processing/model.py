@@ -1,7 +1,8 @@
-import cv_parser
-import job_parser
 import gensim.downloader as api
 import numpy as np
+
+import cv_parser
+import job_parser
 
 model = api.load("glove-wiki-gigaword-300")
 

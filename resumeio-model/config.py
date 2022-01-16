@@ -14,6 +14,6 @@ class DevelopmentConfig:
 class ProductionConfig:
     DEBUG = False
     TESTING = False
-    DATABASE_URI = "mongodb://" + username + ":" + password + "@resumeio-model-db:27017/admin?authSource=admin"
+    DATABASE_URI = "mongodb://mongo-root-username:mongo-root-password@resumeio-model-db:27017/mongo-root-db"
     SQLALCHEMY_DATABASE_URI = "mongodb://resumeio-model-db:27017/resumeiomodel"
 

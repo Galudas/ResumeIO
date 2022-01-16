@@ -1,11 +1,10 @@
 import os
 import random
 import docx
-from infrastructure.aggregate import job
 import job
 import util
 
-job_description_file_path = '../resumeio-generator/job_data'
+job_description_file_path = '../../resumeio-generator/job_data'
 
 
 def get_random_job():
@@ -48,3 +47,6 @@ def extract_job_data():
     job_description.requirements = util.get_most_important_words(job_description.requirements)
     print(job_description)
     return job_description
+
+
+extract_job_data()

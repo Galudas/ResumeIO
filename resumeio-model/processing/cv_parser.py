@@ -2,12 +2,11 @@ import os
 import random
 import docx
 import regex
-from infrastructure.aggregate import applicant
 import applicant
 import util
 
-cv_file_path = "../resumeio-generator/cv_data/"
-position_file_path = "../resumeio-generator/positions.txt"
+cv_file_path = "../../resumeio-generator/cv_data/"
+position_file_path = "../../resumeio-generator/positions.txt"
 
 
 def random_position(file_name):
@@ -65,3 +64,6 @@ def extract_cv_data():
         applicant_description.skills = applicant_description.skills.split(",")
         print(applicant_description)
     return applicant_descriptions
+
+
+extract_cv_data()
