@@ -18,7 +18,7 @@ public class MatchingController {
     private final MatchingService matchingService;
 
     @PostMapping()
-    public Future<String> matchCandidate(@RequestBody MatchingObject matchingObject) {
+    public String matchCandidate(@RequestBody MatchingObject matchingObject) {
         return matchingService.match(matchingObject);
     }
 }

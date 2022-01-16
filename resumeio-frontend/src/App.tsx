@@ -17,8 +17,8 @@ function App() {
         e.preventDefault()
         console.log("This is value ", jobDescription, candidateDescription)
         setIsShown(true)
-        api.post("/matching",
-            {"job_description": jobDescription, "candidate_description": candidateDescription})
+        api.post("matching",
+            {"jobDescription": jobDescription, "candidateDescription": candidateDescription})
             .then(r => {
                 setScore(r)
                 setIsAnalyzed(true)

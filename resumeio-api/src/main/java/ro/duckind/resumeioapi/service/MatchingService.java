@@ -13,13 +13,12 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 
 @Configuration
-@EnableAsync
 public class MatchingService {
     @Value(value = "${matching.service.url}")
     private String matchingServiceUrl;
 
     @Async("threadPoolTaskExecutor")
-    public Future<String> match(MatchingObject matchingObject) {
+    public String match(MatchingObject matchingObject) {
         RestTemplate restTemplate = new RestTemplate();
         HttpEntity<?> requestEntity = new HttpEntity<>(matchingObject, getHeaders());
         System.out.println(matchingObject.getJobDescription());
@@ -31,7 +30,7 @@ public class MatchingService {
 
         response = restTemplate.exchange(matchingServiceUrl, HttpMethod.POST, requestEntity, t);
         System.out.println("Got response " + response.getBody());
-        return CompletableFuture.completedFuture(response.getBody());
+        return response.getBody();
     }
 
     private HttpHeaders getHeaders() {
