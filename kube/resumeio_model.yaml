@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: resumeio-model
-          image: galudas/resumeio:resumeio-model.0.0.9
+          image: galudas/resumeio:resumeio-model.1.0.1
           ports:
             - containerPort: 5000
           env:

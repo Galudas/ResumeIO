@@ -1,8 +1,5 @@
 import os
 
-username = os.getenv('MONGO_INITDB_ROOT_USERNAME')
-password = os.getenv('MONGO_INITDB_ROOT_PASSWORD')
-
 
 class DevelopmentConfig:
     DEBUG = True
@@ -14,6 +11,6 @@ class DevelopmentConfig:
 class ProductionConfig:
     DEBUG = False
     TESTING = False
-    DATABASE_URI = "mongodb://" + username + ":" + password + "@resumeio-model-db:27017/admin?authSource=admin"
-    SQLALCHEMY_DATABASE_URI = "mongodb://resumeio-model-db:27017/resumeiomodel"
+    DATABASE_URI = "mongodb://cmVzdW1laW9tb2RlbA==:cmVzdW1laW9tb2RlbA==@resumeio-model-db:27017/admin?authSource=admin"
+    SQLALCHEMY_DATABASE_URI = "mongodb://resumeio-model-db:27017/cmVzdW1laW9tb2RlbA=="
 
