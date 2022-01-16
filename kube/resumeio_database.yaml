@@ -44,8 +44,7 @@ spec:
           volumeMounts:
             - name: storage
               mountPath: /data/db
-            - name: scripts
-              mountPath: ${HOME}/.resumeio/scripts
+
           env:
             - name: POSTGRES_DB
               value: resumeio
@@ -57,6 +56,3 @@ spec:
         - name: storage
           persistentVolumeClaim:
             claimName: postgres-pvc
-        - name: scripts
-          hostPath:
-            path: /scripts

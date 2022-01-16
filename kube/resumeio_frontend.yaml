@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: minikube-react-app
-        image: galudas/resumeio:resumeio-frontend.1.0.1
+        image: galudas/resumeio:resumeio-frontend.1.0.3
         imagePullPolicy: Always
         ports:
         - containerPort: 80
