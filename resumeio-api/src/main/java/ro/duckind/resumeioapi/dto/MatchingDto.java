@@ -1,9 +1,9 @@
-package ro.duckind.resumeioapi.entity;
+package ro.duckind.resumeioapi.dto;
 
 import lombok.Data;
 
 @Data
-public class MatchingObject {
+public class MatchingDto {
     private String jobDescription;
     private String candidateDescription;
 }
