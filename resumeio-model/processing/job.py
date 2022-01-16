@@ -5,7 +5,7 @@ class Job:
         self.requirements = requirements
 
     def __str__(self):
-        return 'job(description: ' + self.description \
-               + ' \ndepartment:' + self.department \
-               + ' \nrequirements: ' + self.requirements + \
+        return 'job(description: ' + str(self.description) \
+               + ' \ndepartment:' + str(self.department) \
+               + ' \nrequirements: ' + str(self.requirements) + \
                ')\n'
