@@ -22,10 +22,15 @@ public class MatchingService {
     public Future<String> match(MatchingObject matchingObject) {
         RestTemplate restTemplate = new RestTemplate();
         HttpEntity<?> requestEntity = new HttpEntity<>(matchingObject, getHeaders());
+        System.out.println(matchingObject.getJobDescription());
+        System.out.println(matchingObject.getCandidateDescription());
         ResponseEntity<String> response;
         ParameterizedTypeReference<String> t = new ParameterizedTypeReference<>() {
         };
+        System.out.println("Sent data to " + matchingServiceUrl);
+
         response = restTemplate.exchange(matchingServiceUrl, HttpMethod.POST, requestEntity, t);
+        System.out.println("Got response " + response.getBody());
         return CompletableFuture.completedFuture(response.getBody());
     }
 

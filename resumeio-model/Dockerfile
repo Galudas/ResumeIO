@@ -1,7 +1,7 @@
 FROM python:3.8
 ENV PYTHONUNBUFFERED=1
-COPY /processing /processing
-COPY request_parser.py request_parser.py
+COPY model.py model.py
+COPY util.py util.py
 COPY gensim-develop.zip gensim-develop.zip
 COPY server.py server.py
 COPY requirements.txt requirements.txt

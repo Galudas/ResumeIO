@@ -1,13 +1,15 @@
 from flask import Flask
-from processing import model
+from flask import request
+import model
 
 app = Flask(__name__)
 
 
-@app.route("/")
+@app.route("/", methods=['POST'])
 def hello_world():
-    model.encode_words(['foot', 'job', 'IT', 'ball'])
-    return "<p>Hello, World!</p>"
+    req_data = request.get_json(force=True)
+    print("Got data " + req_data)
+    return model.match(req_data['job_description'], req_data['candidate_description'])
 
 
 if __name__ == "__main__":

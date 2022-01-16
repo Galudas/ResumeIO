@@ -13,7 +13,7 @@ spec:
         app: resumeio-app
     spec:
       containers:
-        - name: resumeio-api
+        - name: resumeio-app
           image: galudas/resumeio:resumeio-api.1.0.2
           ports:
             - containerPort: 8080
@@ -22,6 +22,8 @@ spec:
               value: jdbc:postgresql://resumeio-database:5432/resumeio
             - name: POSTGRES_URL
               value: jdbc:postgres://resumeio-database:5432/resumeio
+            - name: MATCHING_SERVICE_URL
+              value: http://resumeio-model:5000/
           imagePullPolicy: Always
 ---
 
@@ -37,4 +39,4 @@ spec:
       protocol: TCP
       nodePort: 30111
   selector:
-    app: resumeio-api
+    app: resumeio-app

@@ -1,5 +1,6 @@
 import gensim.downloader as api
 import numpy as np
+import util
 
 model = api.load("glove-wiki-gigaword-300")
 
@@ -26,19 +27,15 @@ def encode_words(word_list):
     return codifications
 
 
-# def match():
-#     print("START")
-#     candidates = cv_parser.extract_cv_data()
-#     job_description = job_parser.extract_job_data()
-#     job_encoded = list(np.append(job_description.description, job_description.requirements))
-#     job_encoded = encode_words(job_encoded)
-#     rank = {}
-#     for candidate in candidates:
-#         candidate_encoded = list(np.append(candidate.skills, candidate.experience))
-#         candidate_encoded = encode_words(candidate_encoded)
-#         similarities = find_similarities(candidate_encoded, job_encoded)
-#         if len(candidate_encoded) != 0:
-#             rank[candidate.name] = len(similarities) / len(candidate_encoded)
-#         print(similarities)
-#     rank = [(k, v) for k, v in sorted(rank.items(), key=lambda item: item[1],  reverse=True)]
-#     print(rank)
+def match(job_description, candidate_description):
+    print("Start matching")
+    parsed_job = util.get_most_important_words(job_description)
+    parsed_candidate = util.get_most_important_words(candidate_description)
+    encoded_job = encode_words(parsed_job)
+    encoded_candidate = encode_words(parsed_candidate)
+    similarities = find_similarities(encoded_candidate, encoded_job)
+    if len(encoded_candidate) != 0:
+        similarity_score = len(similarities) / len(encoded_candidate)
+        print("Similarity score: " + str(similarity_score))
+        return similarity_score
+    return 0
