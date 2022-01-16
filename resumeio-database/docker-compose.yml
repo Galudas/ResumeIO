@@ -3,14 +3,10 @@ services:
   postgres:
     image: postgres
     ports:
-      - 5432:5432
+      - "5432:5432"
     environment:
       - POSTGRES_DB=resumeio
       - POSTGRES_USER=resumeio
       - POSTGRES_PASSWORD=resumeio
     volumes:
       - ${HOME}/.resumeio:/data
-#  redis:
-#    image: redis:alpine
-#    ports:
-#      - 6379:6379

@@ -1,16 +1,16 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: minikube-react-app
+  name: resumeio-react
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: minikube-react-app
+      app: resumeio-react
   template:
     metadata:
       labels:
-        app: minikube-react-app
+        app: resumeio-react
     spec:
       containers:
       - name: minikube-react-app
@@ -30,7 +30,7 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: minikube-react-app
+  name: resumeio-react
 spec:
   type: NodePort
   ports:
@@ -39,4 +39,4 @@ spec:
       protocol: TCP
       nodePort: 31000
   selector:
-    app: minikube-react-app
+    app: resumeio-react

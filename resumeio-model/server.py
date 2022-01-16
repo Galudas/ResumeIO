@@ -1,27 +1,15 @@
-import pymongo
 from flask import Flask
-
-import config
+from flask import request
+import model
 
 app = Flask(__name__)
-if app.config["ENV"] == "production":
-    app.config.from_object(config.ProductionConfig)
-else:
-    app.config.from_object(config.DevelopmentConfig)
-
-client = pymongo.MongoClient(app.config["DATABASE_URI"])
-db = client.get_database('resumeiomodel')
-
-if "scores" not in db.list_collection_names():
-    print("== create scores ==")
-    db.create_collection("scores")
 
 
-@app.route("/")
+@app.route("/", methods=['POST'])
 def hello_world():
-    db.get_collection("scores").insert_one(
-        {"id": 1, "name": "name"})
-    return "<p>Hello, World!</p>"
+    req_data = request.get_json(force=True)
+    print("Got data " + req_data)
+    return model.match(req_data['job_description'], req_data['candidate_description'])
 
 
 if __name__ == "__main__":

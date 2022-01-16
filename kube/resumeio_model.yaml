@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: resumeio-model
-          image: galudas/resumeio:resumeio-model.0.0.9
+          image: galudas/resumeio:resumeio-model.1.0.1
           ports:
             - containerPort: 5000
           env:
@@ -25,16 +25,15 @@ spec:
           imagePullPolicy: Always
 ---
 
-kind: Service
 apiVersion: v1
+kind: Service
 metadata:
-    name: resumeio-model
+  name: resumeio-model
 spec:
-  type: NodePort
   ports:
-    - port: 5000
-      targetPort: 5000
-      protocol: TCP
-      nodePort: 30112
+  - port: 5000
+    protocol: TCP
+    targetPort: 5000
   selector:
     app: resumeio-model
+  type: LoadBalancer
