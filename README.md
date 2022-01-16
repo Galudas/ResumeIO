@@ -20,7 +20,3 @@
 | Port Forward to visualize prod db | `kubectl port-forward <pod-name> 54321:5432` |
 | Create virtual environment        | `conda env create -f <env file>`             |
 | Update environment                | `conda env update --file <env file> --prune` |
-
-
-In case needed
-https://www.bogotobogo.com/DevOps/Docker/Docker_Kubernetes_MongoDB_MongoExpress.php
