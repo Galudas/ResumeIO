@@ -1,36 +1,50 @@
 package ro.duckind.resumeioapi.service;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import ro.duckind.resumeioapi.entity.MatchingObject;
-
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Future;
+import ro.duckind.resumeioapi.dto.MatchingDto;
+import ro.duckind.resumeioapi.dto.ScoreDto;
+import ro.duckind.resumeioapi.entity.MatchHistory;
+import ro.duckind.resumeioapi.repo.MatchHistoryRepository;
 
 @Configuration
+@Service
+@RequiredArgsConstructor
+@Slf4j
 public class MatchingService {
     @Value(value = "${matching.service.url}")
     private String matchingServiceUrl;
 
-    @Async("threadPoolTaskExecutor")
-    public String match(MatchingObject matchingObject) {
+    private final MatchHistoryRepository matchHistoryRepository;
+
+    public ScoreDto match(MatchingDto matchingDto) {
         RestTemplate restTemplate = new RestTemplate();
-        HttpEntity<?> requestEntity = new HttpEntity<>(matchingObject, getHeaders());
-        System.out.println(matchingObject.getJobDescription());
-        System.out.println(matchingObject.getCandidateDescription());
+        HttpEntity<?> requestEntity = new HttpEntity<>(matchingDto, getHeaders());
+        log.debug(matchingDto.getJobDescription());
+        log.debug(matchingDto.getCandidateDescription());
         ResponseEntity<String> response;
         ParameterizedTypeReference<String> t = new ParameterizedTypeReference<>() {
         };
-        System.out.println("Sent data to " + matchingServiceUrl);
-
+        log.debug("Sent data to " + matchingServiceUrl);
         response = restTemplate.exchange(matchingServiceUrl, HttpMethod.POST, requestEntity, t);
-        System.out.println("Got response " + response.getBody());
-        return response.getBody();
+
+        log.debug("Got response " + response.getBody());
+        saveMatchHistory(matchingDto, response.getBody());
+        return new ScoreDto(response.getBody());
+    }
+
+    private void saveMatchHistory(MatchingDto matchingDto, String score) {
+        MatchHistory matchHistory = new MatchHistory();
+        matchHistory.setScore(score);
+        matchHistory.setCandidateDescription(matchingDto.getCandidateDescription());
+        matchHistory.setJobDescription(matchingDto.getJobDescription());
+        matchHistoryRepository.save(matchHistory);
     }
 
     private HttpHeaders getHeaders() {
