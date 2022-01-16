@@ -10,7 +10,7 @@ def hello_world():
     req_data = request.get_json(force=True)
     print("Got data ")
     print(req_data)
-    return model.match(req_data['jobDescription'], req_data['candidateDescription'])
+    return str(model.match(req_data['jobDescription'], req_data['candidateDescription']))
 
 
 if __name__ == "__main__":
