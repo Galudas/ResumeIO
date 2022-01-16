@@ -20,9 +20,8 @@ function App() {
         api.post("matching",
             {"jobDescription": jobDescription, "candidateDescription": candidateDescription})
             .then(r => {
-                setScore(r)
+                setScore(r["score"])
                 setIsAnalyzed(true)
-                setIsShown(false)
             })
     }
 
