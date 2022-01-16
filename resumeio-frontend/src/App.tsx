@@ -1,9 +1,11 @@
-import React, {Fragment, useState} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import {InputTextarea} from "primereact/inputtextarea";
 import {Button} from "primereact/button";
 import {InputText} from "primereact/inputtext";
 import {Card} from "primereact/card";
 import {api} from "./httpClient";
+import {DataTable} from "primereact/datatable";
+import {Column} from "primereact/column";
 
 function App() {
     const [jobDescription, setJobDescription] = useState<any>("")
@@ -12,18 +14,24 @@ function App() {
     const [isAnalyzed, setIsAnalyzed] = useState<boolean>(false)
     const [isShown, setIsShown] = useState<boolean>(false)
     const [score, setScore] = useState<any>(null)
+    const [tableData, setDataTableData] = useState<any>([])
 
     const handleSubmit = (e: any) => {
         e.preventDefault()
         console.log("This is value ", jobDescription, candidateDescription)
         setIsShown(true)
         api.post("matching",
-            {"jobDescription": jobDescription, "candidateDescription": candidateDescription})
+            {"jobDescription": jobDescription, "candidateDescription": candidateDescription, "candidateName": userName})
             .then(r => {
                 setScore(r["score"])
                 setIsAnalyzed(true)
             })
     }
+
+    useEffect(() => {
+        api.get("matching")
+            .then(r => setDataTableData(r))
+    }, [])
 
     const reload = (e: any) => {
         e.preventDefault()
@@ -66,12 +74,14 @@ function App() {
                                 autoResize/>
                         </div>
                     </div>
-                    <Button style={{marginTop: "25px"}} label="Success" className="p-button-success" type={"submit"}/>
+                    <Button style={{marginTop: "25px"}} label="Compare" className="p-button-success" type={"submit"}/>
                     {isShown && (isAnalyzed ?
                         <div style={{display: "flex", justifyContent: "center", marginTop: "20px"}}>
-                            <Card title={userName} style={{width: '25rem', marginBottom: '2em', border: "2px solid green"}}>
+                            <Card title={userName}
+                                  style={{width: '25rem', marginBottom: '2em', border: "2px solid green"}}>
                                 <p className="p-m-0" style={{lineHeight: '1.5'}}>Candidate score: {score}</p>
-                                <Button style={{marginTop: "25px"}} label="Cancel" className="p-button-danger" onClick={reload}/>
+                                <Button style={{marginTop: "25px"}} label="Cancel" className="p-button-danger"
+                                        onClick={reload}/>
                             </Card>
                         </div>
                         :
@@ -84,11 +94,16 @@ function App() {
                             </div>
                         </div>)
                     }
-                    <div className="card">
-                        {/*<DataTable value={this.state.products} responsiveLayout="scroll">*/}
-                        {/*    <Column field="candidate_name" header="Candidate Name"/>*/}
-                        {/*    <Column field="name" header="Score"/>*/}
-                        {/*</DataTable>*/}
+                    <div style={{fontSize: "20px", marginTop: "30px"}}>Results</div>
+                    <div className="card" style={{display: "flex", justifyContent: "center", paddingTop: "20px"}}>
+
+                        <DataTable value={tableData} responsiveLayout="scroll"
+                                   style={{width: "20%", border: "2px solid black"}}>
+                            <Column field="name" header="Name"/>
+                            <Column field="score" header="Score"/>
+                        </DataTable>
+
+
                     </div>
                 </div>
 
