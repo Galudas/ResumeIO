@@ -16,4 +16,5 @@ public class MatchHistory {
     String candidateDescription;
     String jobDescription;
     String score;
+    String name;
 }
