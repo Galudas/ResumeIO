@@ -21,8 +21,6 @@
 | Create virtual environment        | `conda env create -f <env file>`             |
 | Update environment                | `conda env update --file <env file> --prune` |
 
-//TODO -> rename `resumeio-app` in `resumeio-api`
-//TODO -> nodurile pe retele diferite //TODO -> utilizat secrete pentru date sensibile //TODO -> Rancher sau Portainer?
 
 In case needed
 https://www.bogotobogo.com/DevOps/Docker/Docker_Kubernetes_MongoDB_MongoExpress.php
