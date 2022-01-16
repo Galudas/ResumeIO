@@ -13,6 +13,8 @@ import ro.duckind.resumeioapi.dto.ScoreDto;
 import ro.duckind.resumeioapi.entity.MatchHistory;
 import ro.duckind.resumeioapi.repo.MatchHistoryRepository;
 
+import java.util.List;
+
 @Configuration
 @Service
 @RequiredArgsConstructor
@@ -22,6 +24,10 @@ public class MatchingService {
     private String matchingServiceUrl;
 
     private final MatchHistoryRepository matchHistoryRepository;
+
+    public List<MatchHistory> getMatchHistory() {
+        return matchHistoryRepository.findAll();
+    }
 
     public ScoreDto match(MatchingDto matchingDto) {
         RestTemplate restTemplate = new RestTemplate();
@@ -42,6 +48,7 @@ public class MatchingService {
     private void saveMatchHistory(MatchingDto matchingDto, String score) {
         MatchHistory matchHistory = new MatchHistory();
         matchHistory.setScore(score);
+        matchHistory.setName(matchingDto.getCandidateName());
         matchHistory.setCandidateDescription(matchingDto.getCandidateDescription());
         matchHistory.setJobDescription(matchingDto.getJobDescription());
         matchHistoryRepository.save(matchHistory);
